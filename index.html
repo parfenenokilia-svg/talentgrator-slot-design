@@ -168,7 +168,7 @@
 
   .splash{
     position: relative;
-    min-height: 100dvh;
+    min-height: 100svh;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -374,7 +374,7 @@
        carry different weight; there is simply no line to notice. */
     background: linear-gradient(180deg, #050507 0%, #050507 78%, #101016 100%);
     color: #f2f2ef;
-    min-height: 100dvh;
+    min-height: 100svh;
     display: flex;
     isolation: isolate;
     align-items: center;
@@ -505,9 +505,9 @@
        section is never more than 0.8 of a screen into view. */
     inset: 0 0 auto 0;
     height: 100vh;
-    /* dvh so the curtain matches window.innerHeight, which is what the
+    /* dvh so the curtain matches (window.tgVH ? window.tgVH() : window.innerHeight), which is what the
        script maps the path onto, while a phone's toolbars come and go */
-    height: 100dvh;
+    height: 100svh;
   }
   @media (prefers-reduced-motion: reduce){
     .wave-curtain{ display: none !important; }
@@ -3695,6 +3695,22 @@ html.lenis,
     } catch (e) { lite = window.innerWidth < 900; }
     window.__tgLite = lite;
     if (lite) document.documentElement.classList.add('tg-lite');
+
+    /* One viewport height for the whole page, fixed at load. In an
+       in-app browser the address capsule collapses and expands while you
+       scroll, and (window.tgVH ? window.tgVH() : window.innerHeight) changes by 50-90px each time. Every
+       scroll-driven effect here is a function of that number, so reading
+       it live makes the whole page twitch in time with the capsule.
+       It is refreshed only on a real resize: a rotation, or a change
+       wide enough that it cannot be the toolbar. */
+    var tgVh = window.innerHeight, tgVw = window.innerWidth;
+    window.tgVH = function(){ return tgVh; };
+    window.addEventListener('resize', function(){
+      if (window.innerWidth !== tgVw || Math.abs(window.innerHeight - tgVh) > 140){
+        tgVw = window.innerWidth;
+        tgVh = window.innerHeight;
+      }
+    }, { passive: true });
   })();
 </script>
 
@@ -4705,7 +4721,7 @@ html.lenis,
     if (!stage || !panelsWrap) return;
     var top = stage.getBoundingClientRect().top;
     var bottom = panelsWrap.getBoundingClientRect().bottom;
-    var viewportH = window.innerHeight;
+    var viewportH = (window.tgVH ? window.tgVH() : window.innerHeight);
     var margin = 24;
     if (top >= 0 && bottom <= viewportH) return;
     var span = bottom - top;
@@ -5026,7 +5042,7 @@ html.lenis,
       measure: measure,
       render: function(){
         if (!w || !h) measure();
-        var vh = window.innerHeight;
+        var vh = (window.tgVH ? window.tgVH() : window.innerHeight);
         var top = section.getBoundingClientRect().top;
         // 0 the instant the section's edge touches the bottom of the
         // viewport, 1 once it has travelled cfg.window screens up
@@ -5165,7 +5181,7 @@ html.lenis,
     var availWidth = container.clientWidth - padL - padR;
     /* leave headroom for the fixed corner marks / scroll cue, which sit
        outside normal flow and would otherwise get crowded by giant type */
-    var availHeight = Math.max(40, window.innerHeight * 0.62);
+    var availHeight = Math.max(40, (window.tgVH ? window.tgVH() : window.innerHeight) * 0.62);
 
     /* pinReelWidths() (below) leaves each .reel-window/.reel-track pinned
        to a tight explicit width from the last time this ran. Measuring
@@ -5369,7 +5385,7 @@ html.lenis,
       return;
     }
 
-    var vw = window.innerWidth, vh = window.innerHeight;
+    var vw = window.innerWidth, vh = (window.tgVH ? window.tgVH() : window.innerHeight);
 
     var aspect = logoRect.height / logoRect.width;
     var bigLogoWidth = Math.min(vw * 0.34, (vh * 0.3) / aspect);
@@ -5620,7 +5636,7 @@ html.lenis,
   var ticking = false;
   function update(){
     ticking = false;
-    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var vh = (window.tgVH ? window.tgVH() : window.innerHeight) || document.documentElement.clientHeight;
     targets.forEach(function(el){
       var rect = el.getBoundingClientRect();
       var center = rect.top + rect.height / 2;
@@ -6313,7 +6329,7 @@ html.lenis,
   var ticking = false;
   function render(){
     ticking = false;
-    var vh = window.innerHeight;
+    var vh = (window.tgVH ? window.tgVH() : window.innerHeight);
     var base = inner.getBoundingClientRect().top;
     plates.forEach(function(pl, i){
       var restTop = base + pl.offsetTop;
@@ -6345,7 +6361,7 @@ html.lenis,
   var ticking = false;
   function render(){
     ticking = false;
-    var line = window.innerHeight * 0.62;
+    var line = (window.tgVH ? window.tgVH() : window.innerHeight) * 0.62;
     rows.forEach(function(r){
       r.classList.toggle('is-reached', r.getBoundingClientRect().top < line);
     });
@@ -6370,14 +6386,14 @@ html.lenis,
   stack.classList.add('is-stacking');
 
   function measure(){
-    var top = Math.min(0, window.innerHeight - cre.offsetHeight);
+    var top = Math.min(0, (window.tgVH ? window.tgVH() : window.innerHeight) - cre.offsetHeight);
     cre.style.setProperty('--stick-top', top + 'px');
   }
   var ticking = false;
   function render(){
     ticking = false;
     if (reduced || !inner) return;
-    var vh = window.innerHeight;
+    var vh = (window.tgVH ? window.tgVH() : window.innerHeight);
     var t = (vh - prog.getBoundingClientRect().top) / vh;
     t = Math.max(0, Math.min(1, t));
     inner.style.setProperty('--recede-s', (1 - 0.06 * t).toFixed(4));
