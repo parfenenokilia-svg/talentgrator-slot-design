@@ -1,0 +1,1 @@
+# talentgrator-slot-design
