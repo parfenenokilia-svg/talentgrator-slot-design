@@ -938,6 +938,15 @@
   }
 
   @media (max-width: 860px){
+    /* the stacked layout gives the title the full column, so it can be
+       read from arm's length instead of squinted at */
+    .hero-title{
+      font-size: clamp(3.3rem, 14.5vw, 4.6rem);
+      max-width: 13ch;
+    }
+    /* the caption under the photo needs air before the lede that
+       follows it in the stacked order */
+    .hero-figure{ margin-bottom: clamp(14px, 3vw, 22px); }
     .hero-portrait img{
       max-width: min(80vw, 380px);
       max-height: 46vh;
@@ -3377,6 +3386,23 @@
     -webkit-backdrop-filter: blur(14px) saturate(140%);
   }
   .site-nav.is-on-dark::before{ opacity: 1; }
+  /* lighter build: a live backdrop blur behind a bar that sits over a
+     scrolling page is the single most expensive thing on this page for
+     a phone GPU, so the strip becomes a plain tint there */
+  html.tg-lite .site-nav::before{
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(10,10,12,0.94);
+  }
+  html.tg-lite .site-nav.is-on-paper::before{ background: rgba(255,255,255,0.95); }
+  html.tg-lite .site-nav-cta{ animation: none; }
+  html.tg-lite .hero-haze,
+  html.tg-lite .hero-portrait img,
+  html.tg-lite .creators-col,
+  html.tg-lite .creators-inner{ will-change: auto; }
+  html.tg-lite .creators-spotlight{ display: none; }
+  html.tg-lite .wave-curtain{ display: none !important; }
+  html.tg-lite .audience-ghost-track{ animation: none !important; }
   /* The closing section is paper, and its prices and headings scroll
      through the bar just like the dark sections do. Same frosted strip,
      tinted to the paper and running the bar's full height with a soft
@@ -3630,6 +3656,17 @@
     if (!reduced && canAnimate && !skipIntro){
       document.documentElement.classList.add('seq-anim');
     }
+    /* Phones, tablets and in-app browsers (Telegram's WebView above all)
+       get a lighter build: the scroll-driven effects that redraw on every
+       frame are switched off, and so are the live blurs. They are the
+       whole reason scrolling stutters there; none of them carries
+       information, so the page loses only polish, not content. */
+    var lite = false;
+    try {
+      lite = window.matchMedia('(max-width: 900px), (pointer: coarse)').matches;
+    } catch (e) { lite = window.innerWidth < 900; }
+    window.__tgLite = lite;
+    if (lite) document.documentElement.classList.add('tg-lite');
   })();
 </script>
 
@@ -5038,6 +5075,7 @@
     };
   }
 
+  if (window.__tgLite) return;   /* lighter build on touch devices */
   var seams = [
     seam({ overlay: 'waveCurtain', svg: 'waveSvg', section: 'hero',
            path: 'wavePath', foam: 'wavePathFoam', grad: 'waveGrad',
@@ -5549,7 +5587,7 @@
      separate listeners. Small range (+-40px against art that already
      overflows its box) so no hard edge is ever exposed. */
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduced) return;
+  if (reduced || window.__tgLite) return;
   var targets = Array.prototype.slice.call(document.querySelectorAll('.hero, .program'));
   if (!targets.length) return;
   var ticking = false;
@@ -6230,7 +6268,7 @@
      arrive one after the other. */
   var sec = document.getElementById('creators');
   if (!sec) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.__tgLite) return;
   var inner = sec.querySelector('.creators-inner');
   var plates = Array.prototype.slice.call(sec.querySelectorAll('.creators-col'));
   if (!inner || !plates.length) return;
@@ -6298,7 +6336,7 @@
   var prog = document.getElementById('program');
   if (!stack || !cre || !prog) return;
   var inner = cre.querySelector('.creators-inner');
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.__tgLite;
   stack.classList.add('is-stacking');
 
   function measure(){
