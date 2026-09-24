@@ -1011,11 +1011,21 @@
     }
     /* the wireframe graphic stays quiet and centered behind the whole
        stack at this width, same as before. */
+    /* The whole machine, not a slice of it. With `cover` a tall phone
+       screen blew the landscape render up to three times the screen's
+       width and showed one edge of one reel. It is now sized so the
+       machine alone (about 60% of the render's width) fits the screen,
+       centred on its own middle rather than the image's, and set at
+       the height of Ricardo's portrait so he stands in front of it.
+       The render's lower edge dissolves into the page. */
     .hero > .sec-art{
-      opacity: 0.22;
-      background-position: center 20%;
-      mask-image: none;
-      -webkit-mask-image: none;
+      --art-w: min(170vw, 1100px);
+      --art-top: calc(240px + 23vh - min(44.4vw, 287px));
+      opacity: 0.3;
+      background-size: var(--art-w) auto;
+      background-position: calc(50vw - var(--art-w) * 0.68) var(--art-top);
+      mask-image: linear-gradient(180deg, #000 0, #000 calc(var(--art-top) + var(--art-w) * 0.38), transparent calc(var(--art-top) + var(--art-w) * 0.555));
+      -webkit-mask-image: linear-gradient(180deg, #000 0, #000 calc(var(--art-top) + var(--art-w) * 0.38), transparent calc(var(--art-top) + var(--art-w) * 0.555));
     }
     .hero::after{
       background: linear-gradient(180deg, rgba(10,10,12,0.78) 0%, rgba(10,10,12,0.22) 18%, rgba(10,10,12,0.1) 42%, rgba(10,10,12,0.52) 68%, rgba(10,10,12,0.9) 100%);
