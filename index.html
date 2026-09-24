@@ -3069,6 +3069,11 @@
     mask-image: linear-gradient(to bottom, transparent 0%, #000 13%, #000 87%, transparent 100%);
   }
   .audience-reel-window:active{ cursor: grabbing; }
+  /* On a touch screen an up-or-down swipe over the drum scrolls the
+     page like anywhere else, so the drum can never trap the reader
+     half way down the page. It turns with a tap on a neighbouring
+     name or a sideways swipe. */
+  html.tg-touch .audience-reel-window{ touch-action: pan-y; cursor: auto; }
   .audience-drum-cylinder{
     position: absolute;
     inset: 0;
@@ -4982,6 +4987,36 @@ html.lenis,
      capture); elementFromPoint is the fallback for exactly that
      retargeted-click case, using the click's real coordinates to find
      which name was actually under the pointer. */
+  /* A short tick under the finger for every name the drum passes, like
+     the ratchet of a real reel. Android browsers vibrate on request.
+     Safari on iPhone has no vibration call; it does give a light tap
+     when a system switch control is toggled, so a hidden one is toggled
+     instead. Where neither exists nothing happens. */
+  var hapticLabel = null;
+  function tick(){
+    if (reducedMotion) return;
+    try {
+      if (typeof navigator.vibrate === 'function'){ navigator.vibrate(8); return; }
+      if (!hapticLabel){
+        hapticLabel = document.createElement('label');
+        hapticLabel.setAttribute('aria-hidden', 'true');
+        hapticLabel.style.cssText = 'position:fixed;left:-200px;top:0;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;';
+        var sw = document.createElement('input');
+        sw.type = 'checkbox';
+        sw.setAttribute('switch', '');
+        sw.tabIndex = -1;
+        hapticLabel.appendChild(sw);
+        document.body.appendChild(hapticLabel);
+      }
+      hapticLabel.click();
+    } catch (err) {}
+  }
+  /* one tick per name passed on a tap, spaced over the spin */
+  function tickSteps(n){
+    n = Math.min(3, Math.abs(n));
+    for (var k = 0; k < n; k++) setTimeout(tick, k * 110);
+  }
+
   var suppressClick = false;
   function handleReelClick(e){
     // a drag that actually moved the reel still ends in a native "click"
@@ -4998,6 +5033,7 @@ html.lenis,
     if (!item) return;
     var i = items.indexOf(item);
     if (i !== -1 && i !== trackIndex){
+      tickSteps(i - trackIndex);
       spinTo(i);
       setTimeout(ensurePanelVisible, 450);
     }
@@ -5015,24 +5051,43 @@ html.lenis,
   if (reelWindowEl){
     var STEPS_PER_PX = 1 / 90; // ~90px of drag per step
     var dragging = false, dragStartY = 0, dragLastY = 0, dragMoved = false, dragBasePos = 0;
+    /* a finger on a touch screen turns the drum sideways (vertical
+       swipes belong to the page, see touch-action in <style>); a mouse
+       keeps dragging it up and down */
+    var sideways = false, dragStartX = 0, lastTickAt = 0;
+    function dragDelta(e){
+      return sideways ? (e.clientX - dragStartX) * 1.25 : (e.clientY - dragStartY);
+    }
 
     reelWindowEl.addEventListener('pointerdown', function(e){
       dragging = true;
       dragMoved = false;
+      /* a finger swipe is not followed by a click the way a mouse drag
+         is, so a flag left over from it would swallow the next tap */
+      suppressClick = false;
+      sideways = !!window.__tgTouchScroll && e.pointerType !== 'mouse';
       dragStartY = e.clientY;
+      dragStartX = e.clientX;
       dragLastY = e.clientY;
       dragBasePos = trackIndex;
+      lastTickAt = trackIndex;
       items.forEach(function(item){ item.classList.add('is-dragging'); });
-      if (reelWindowEl.setPointerCapture) reelWindowEl.setPointerCapture(e.pointerId);
+      if (!sideways && reelWindowEl.setPointerCapture) reelWindowEl.setPointerCapture(e.pointerId);
     });
     reelWindowEl.addEventListener('pointermove', function(e){
       if (!dragging) return;
-      dragLastY = e.clientY;
-      var dy = dragLastY - dragStartY;
-      if (Math.abs(dy) > 6) dragMoved = true;
+      var d = dragDelta(e);
+      dragLastY = dragStartY + d;
+      if (!dragMoved){
+        if (sideways){
+          if (Math.abs(e.clientX - dragStartX) > 8 && Math.abs(e.clientX - dragStartX) > Math.abs(e.clientY - dragStartY)) dragMoved = true;
+        } else if (Math.abs(d) > 6) dragMoved = true;
+      }
       if (dragMoved){
-        pos = dragBasePos - dy * STEPS_PER_PX;
+        pos = dragBasePos - d * STEPS_PER_PX;
         renderAll();
+        var near = Math.round(pos);
+        if (near !== lastTickAt && e.pointerType !== 'mouse'){ lastTickAt = near; tick(); }
       }
     });
     function dragEnd(){
@@ -5043,6 +5098,7 @@ html.lenis,
       suppressClick = true;
       var dy = dragLastY - dragStartY;
       var steps = Math.max(-2, Math.min(2, Math.round(-dy * STEPS_PER_PX)));
+      if (dragBasePos + steps !== lastTickAt && sideways) tick();
       var newIndex = Math.max(0, Math.min(FACE_COUNT - 1, dragBasePos + steps));
       if (newIndex !== trackIndex){
         spinTo(newIndex);
