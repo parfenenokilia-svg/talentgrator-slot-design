@@ -5725,21 +5725,21 @@ html.lenis,
     });
     document.title = isEn ? 'Slot design: from idea to release' : 'Слот-дизайн: от идеи до релиза';
     document.documentElement.setAttribute('lang', isEn ? 'en' : 'ru');
-    try { localStorage.setItem('tg-lang', isEn ? 'en' : 'ru'); } catch (e) {}
   }
 
   if (langBtns.ru) langBtns.ru.addEventListener('click', function(){ applyLang('ru'); });
   if (langBtns.en) langBtns.en.addEventListener('click', function(){ applyLang('en'); });
 
-  /* The page opens in English. Russian is one tap away on the toggle,
-     is remembered for the next visit, and can be linked to directly
-     with ?lang=ru (for Russian-language posts and ads). */
+  /* The page always opens in English. Russian is one tap away on the
+     toggle, and can be linked to directly with ?lang=ru (for
+     Russian-language posts and ads). The choice is not remembered, so
+     every visitor and every shared link sees the same first screen. */
   (function(){
     var start = 'en';
     try {
       var q = (location.search.match(/[?&]lang=(ru|en)\b/) || [])[1];
-      var saved = localStorage.getItem('tg-lang');
-      start = q || (saved === 'ru' || saved === 'en' ? saved : 'en');
+      if (q) start = q;
+      localStorage.removeItem('tg-lang');
     } catch (e) {}
     applyLang(start);
   })();
