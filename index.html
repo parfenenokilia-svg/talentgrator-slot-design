@@ -5257,15 +5257,20 @@ html.lenis,
      (see the .creators-lede min-height), spin through other plausible
      categories on the same beat as those numbers, so both sides of the
      row settle together instead of only one side moving. */
-  var domainWords = inner.querySelectorAll('.creators-domain-word');
+  /* looked up when needed, not once at load: the language switch (which
+     runs on load, the page opens in English) rebuilds this line's markup,
+     and a list captured earlier would point at words no longer on the
+     page, so the spin played on nothing */
+  function domainWordsNow(){ return inner.querySelectorAll('.creators-domain-word'); }
+  var domainWords = domainWordsNow();
   var domainPool = ['iGaming', 'Tech', 'FinTech', 'EdTech', 'Retail', 'SaaS', 'Web3', 'Telecom', 'Media', 'Crypto'];
   function setFinalDomainValues(){
-    domainWords.forEach(function(el){
+    domainWordsNow().forEach(function(el){
       el.textContent = el.getAttribute('data-target');
     });
   }
   function spinDomains(){
-    domainWords.forEach(function(el){
+    domainWordsNow().forEach(function(el){
       var target = el.getAttribute('data-target');
       /* mono face: the target's own length in ch is its exact width, so
          the slot is fixed to it and decoys are drawn only from words
