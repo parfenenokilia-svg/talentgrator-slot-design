@@ -2085,6 +2085,9 @@
     color: var(--paper-ink-dim);
   }
   .join-legal a{ color: var(--paper-ink-soft); text-underline-offset: 3px; }
+  .join-legal--contact{ color: var(--paper-ink-soft); }
+  .join-legal--contact a{ overflow-wrap: anywhere; }
+  .join-legal--company{ margin-top: 10px; }
   .join-dialog::backdrop{
     background: rgba(8,8,12,0.62);
     backdrop-filter: blur(3px);
@@ -4315,7 +4318,8 @@ html.lenis,
     </div>
   </div>
 
-  <p class="join-legal">SmileTech s.r.o. (Talentgrator) · <a href="#privacy" data-ru="Политика конфиденциальности" data-en="Privacy policy">Privacy policy</a></p>
+  <p class="join-legal join-legal--contact" data-ru-html="С вопросами о курсе и претензиями пишите на &lt;a href=&quot;mailto:courses@talentgrator.com&quot;&gt;courses@talentgrator.com&lt;/a&gt;." data-en-html="For questions about the course or complaints, write to &lt;a href=&quot;mailto:courses@talentgrator.com&quot;&gt;courses@talentgrator.com&lt;/a&gt;.">С вопросами о курсе и претензиями пишите на <a href="mailto:courses@talentgrator.com">courses@talentgrator.com</a>.</p>
+  <p class="join-legal join-legal--company">SmileTech s.r.o. (Talentgrator) · <a href="#privacy" data-ru="Политика конфиденциальности" data-en="Privacy policy">Privacy policy</a></p>
 
   <dialog class="join-dialog" id="joinDialog" aria-labelledby="joinDialogTitle">
     <div class="join-dialog-scroll" id="joinDialogScroll" data-lenis-prevent>
