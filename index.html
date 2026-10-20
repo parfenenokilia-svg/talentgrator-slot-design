@@ -6737,12 +6737,11 @@ html.lenis,
       region:     'entry.484941668',
       jobs:       'entry.969847093',
       source:     'entry.355085959',
-      /* consent checkboxes: fill in the entry ids once the matching
-         short-answer questions exist in the Google Form; until then
-         these values are not stored anywhere */
-      privacy:    '',
-      terms:      '',
-      partners:   ''
+      /* consent checkboxes, short-answer questions in the Google Form:
+         "Да" for the two required ones, "Да" or "Нет" for partners */
+      privacy:    'entry.279443740',
+      terms:      'entry.1186207596',
+      partners:   'entry.2043465877'
     }
   };
 
@@ -7342,15 +7341,14 @@ html.lenis,
       company:   'entry.1636474898',
       name:      'entry.1223943979',
       contact:   'entry.1542200223',
-      /* fill in once the matching questions exist in the Google Form */
-      employees: '',
-      comment:   '',
-      privacy:   ''
+      employees: 'entry.202134956',
+      comment:   'entry.123909151',
+      privacy:   'entry.2141330148'
     },
-    /* answers whose question is not in the Google Form yet are written
-       together into this required question ("Должность"), so nothing
-       is lost and Google accepts the submission */
-    packInto: 'entry.498901969'
+    /* if a field above is left without an entry id, its answer is written
+       into this question together with the others, so nothing is lost;
+       empty while every field has its own question */
+    packInto: ''
   };
 
   var form = document.getElementById('leadForm');
