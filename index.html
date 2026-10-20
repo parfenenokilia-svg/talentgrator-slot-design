@@ -4312,8 +4312,8 @@ html.lenis,
       <button type="button" class="join-open" id="joinOpen"><span class="btn-label" data-ru="Заполнить анкету участника" data-en="Apply as a participant">Заполнить анкету участника</span><span class="btn-orbit" aria-hidden="true"><svg class="btn-orbit-track" preserveAspectRatio="none"><rect fill="none" width="100%" height="100%"></rect></svg><span class="btn-orbit-dot"></span></span></button>
       <p class="join-open-note" data-ru="Десять вопросов, около трёх минут." data-en="Ten questions, about three minutes.">Десять вопросов, около трёх минут.</p>
       <div class="join-secondary">
-        <p class="join-secondary-text" data-ru="Если вы хотите отправить на курс сотрудников, оставьте контакты." data-en="If you want to send your team to the course, leave your contacts.">Если вы хотите отправить на курс сотрудников, оставьте контакты.</p>
-        <button type="button" class="join-open join-open--ghost" id="leadOpen"><span class="btn-label" data-ru="Запросить информацию" data-en="Request information">Запросить информацию</span></button>
+        <p class="join-secondary-text" data-ru="Хотите обучить команду? Оставьте контакт, и мы расскажем, как ваши сотрудники могут попасть на курс. Каждый участник подаёт анкету и оплачивает участие самостоятельно, от одной компании на поток принимаем до пяти человек." data-en="Want to train your team? Leave your contact details and we will explain how your employees can join the course. Each participant applies and pays for the course individually, and we accept up to five people from one company per cohort.">Хотите обучить команду? Оставьте контакт, и мы расскажем, как ваши сотрудники могут попасть на курс. Каждый участник подаёт анкету и оплачивает участие самостоятельно, от одной компании на поток принимаем до пяти человек.</p>
+        <button type="button" class="join-open join-open--ghost" id="leadOpen"><span class="btn-label" data-ru="Оставить контакт" data-en="Leave contact details">Оставить контакт</span></button>
       </div>
     </div>
   </div>
@@ -4442,7 +4442,7 @@ html.lenis,
             <p class="join-error" id="jq-jobs-err" role="alert"></p>
           </fieldset>
           <fieldset class="join-q" id="jq-source" data-key="source" data-type="radio" aria-describedby="jq-source-err">
-            <legend class="join-label"><span data-ru="Откуда узнали о курсе" data-en="How you heard about the course">Откуда узнали о курсе</span></legend>
+            <legend class="join-label"><span data-ru="Откуда узнали о курсе" data-en="How you heard about the course">Откуда узнали о курсе</span> <span class="join-hint" data-ru="необязательно" data-en="optional">необязательно</span></legend>
             <div class="join-chips">
               <label class="join-chip"><input type="radio" name="source" value="Telegram-канал"><span data-ru="Telegram-канал" data-en="Telegram channel">Telegram-канал</span></label>
               <label class="join-chip"><input type="radio" name="source" value="LinkedIn"><span data-ru="LinkedIn" data-en="LinkedIn">LinkedIn</span></label>
@@ -4456,12 +4456,16 @@ html.lenis,
 
         <div class="join-consents">
           <label class="join-consent">
-            <input type="checkbox" id="jf-offer" name="offer" required aria-describedby="jf-consent-err">
-            <span data-ru-html="Принимаю условия &lt;a href=&quot;#&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;публичной оферты&lt;/a&gt; (договора на обучение)." data-en-html="I accept the terms of the &lt;a href=&quot;#&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;public offer&lt;/a&gt; (the training contract).">Принимаю условия <a href="#" target="_blank" rel="noopener">публичной оферты</a> (договора на обучение).</span>
+            <input type="checkbox" id="jf-privacy" name="privacy" required aria-describedby="jf-consent-err">
+            <span data-ru-html="Подтверждаю ознакомление с &lt;a href=&quot;https://talentgrator.com/courses/slot-design-from-idea-to-release/privacy&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Политикой конфиденциальности&lt;/a&gt; (Privacy Policy, документ на английском языке)." data-en-html="I acknowledge that I have read the &lt;a href=&quot;https://talentgrator.com/courses/slot-design-from-idea-to-release/privacy&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Privacy Policy&lt;/a&gt;.">Подтверждаю ознакомление с <a href="https://talentgrator.com/courses/slot-design-from-idea-to-release/privacy" target="_blank" rel="noopener">Политикой конфиденциальности</a> (Privacy Policy, документ на английском языке).</span>
           </label>
           <label class="join-consent">
-            <input type="checkbox" id="jf-privacy" name="privacy" required aria-describedby="jf-consent-err">
-            <span data-ru-html="Даю согласие на обработку персональных данных в соответствии с &lt;a href=&quot;#privacy&quot;&gt;политикой конфиденциальности&lt;/a&gt;." data-en-html="I consent to the processing of my personal data under the &lt;a href=&quot;#privacy&quot;&gt;privacy policy&lt;/a&gt;.">Даю согласие на обработку персональных данных в соответствии с <a href="#privacy">политикой конфиденциальности</a>.</span>
+            <input type="checkbox" id="jf-terms" name="terms" required aria-describedby="jf-consent-err">
+            <span data-ru-html="Принимаю &lt;a href=&quot;#terms-pdf-placeholder&quot;&gt;условия участия в онлайн-курсе&lt;/a&gt; (Terms and Conditions for Participation in the Live Online Course, документ на английском языке)." data-en-html="I accept the &lt;a href=&quot;#terms-pdf-placeholder&quot;&gt;TERMS AND CONDITIONS FOR PARTICIPATION IN THE LIVE ONLINE COURSE&lt;/a&gt;.">Принимаю <a href="#terms-pdf-placeholder">условия участия в онлайн-курсе</a> (Terms and Conditions for Participation in the Live Online Course, документ на английском языке).</span>
+          </label>
+          <label class="join-consent">
+            <input type="checkbox" id="jf-partners" name="partners">
+            <span data-ru="Разрешаю Talentgrator передавать мой профиль и результаты курса, включая финальный проект, компаниям-партнёрам и связываться со мной по поводу вакансий." data-en="I agree that Talentgrator may share my profile and course results, including my final project, with partner companies and contact me about job opportunities.">Разрешаю Talentgrator передавать мой профиль и результаты курса, включая финальный проект, компаниям-партнёрам и связываться со мной по поводу вакансий.</span>
           </label>
           <p class="join-error" id="jf-consent-err" role="alert"></p>
         </div>
@@ -4483,39 +4487,44 @@ html.lenis,
       <form class="join-form" id="leadForm" novalidate>
         <div class="join-dialog-head">
           <div>
-            <h3 class="join-card-title" id="leadDialogTitle" data-ru="Запросить информацию для компании" data-en="Request information for your company">Запросить информацию для компании</h3>
-            <p class="join-card-sub" data-ru="Оставьте контакты, и мы свяжемся с вами." data-en="Leave your contacts and we will get in touch.">Оставьте контакты, и мы свяжемся с вами.</p>
+            <h3 class="join-card-title" id="leadDialogTitle" data-ru="Обучение для команды" data-en="Training for your team">Обучение для команды</h3>
+            <p class="join-card-sub" data-ru="Хотите обучить команду? Оставьте контакт, и мы расскажем, как ваши сотрудники могут попасть на курс. Каждый участник подаёт анкету и оплачивает участие самостоятельно, от одной компании на поток принимаем до пяти человек." data-en="Want to train your team? Leave your contact details and we will explain how your employees can join the course. Each participant applies and pays for the course individually, and we accept up to five people from one company per cohort.">Хотите обучить команду? Оставьте контакт, и мы расскажем, как ваши сотрудники могут попасть на курс. Каждый участник подаёт анкету и оплачивает участие самостоятельно, от одной компании на поток принимаем до пяти человек.</p>
           </div>
           <button type="button" class="join-close" id="leadClose" aria-label="Закрыть" data-ru-label="Закрыть" data-en-label="Close">&#215;</button>
         </div>
 
         <div class="join-fields">
           <div class="join-field join-field--half">
-            <label class="join-label" for="lf-name"><span data-ru="Имя и фамилия" data-en="Name and surname">Имя и фамилия</span> <span class="req" aria-hidden="true">*</span></label>
-            <input class="join-input" type="text" id="lf-name" name="name" autocomplete="name" required aria-describedby="lf-name-err">
-            <p class="join-error" id="lf-name-err" role="alert"></p>
-          </div>
-          <div class="join-field join-field--half">
-            <label class="join-label" for="lf-role"><span data-ru="Должность" data-en="Job title">Должность</span> <span class="req" aria-hidden="true">*</span></label>
-            <input class="join-input" type="text" id="lf-role" name="role" autocomplete="organization-title" required aria-describedby="lf-role-err">
-            <p class="join-error" id="lf-role-err" role="alert"></p>
-          </div>
-          <div class="join-field join-field--half">
-            <label class="join-label" for="lf-company"><span data-ru="Компания" data-en="Company">Компания</span> <span class="req" aria-hidden="true">*</span></label>
+            <label class="join-label" for="lf-company"><span data-ru="Название компании" data-en="Company name">Название компании</span> <span class="req" aria-hidden="true">*</span></label>
             <input class="join-input" type="text" id="lf-company" name="company" autocomplete="organization" required aria-describedby="lf-company-err">
             <p class="join-error" id="lf-company-err" role="alert"></p>
+          </div>
+          <div class="join-field join-field--half">
+            <label class="join-label" for="lf-name"><span data-ru="Контактное лицо" data-en="Contact person">Контактное лицо</span> <span class="req" aria-hidden="true">*</span></label>
+            <input class="join-input" type="text" id="lf-name" name="name" autocomplete="name" required aria-describedby="lf-name-err">
+            <p class="join-error" id="lf-name-err" role="alert"></p>
           </div>
           <div class="join-field join-field--half">
             <label class="join-label" for="lf-contact"><span data-ru="Почта или Telegram" data-en="Email or Telegram">Почта или Telegram</span> <span class="req" aria-hidden="true">*</span></label>
             <input class="join-input" type="text" id="lf-contact" name="contact" placeholder="name@company.com" required aria-describedby="lf-contact-err">
             <p class="join-error" id="lf-contact-err" role="alert"></p>
           </div>
+          <div class="join-field join-field--half">
+            <label class="join-label" for="lf-employees"><span data-ru="Сколько сотрудников хотят пройти курс" data-en="How many employees want to take the course">Сколько сотрудников хотят пройти курс</span> <span class="req" aria-hidden="true">*</span></label>
+            <input class="join-input" type="number" id="lf-employees" name="employees" min="1" step="1" inputmode="numeric" required aria-describedby="lf-employees-err">
+            <p class="join-error" id="lf-employees-err" role="alert"></p>
+          </div>
+          <div class="join-field">
+            <label class="join-label" for="lf-comment"><span data-ru="Комментарий" data-en="Comment">Комментарий</span> <span class="join-hint" data-ru="необязательно" data-en="optional">необязательно</span></label>
+            <textarea class="join-input join-textarea" id="lf-comment" name="comment" rows="3" aria-describedby="lf-comment-err"></textarea>
+            <p class="join-error" id="lf-comment-err" role="alert"></p>
+          </div>
         </div>
 
         <div class="join-consents">
           <label class="join-consent">
             <input type="checkbox" id="lf-privacy" name="privacy" required aria-describedby="lf-consent-err">
-            <span data-ru-html="Даю согласие на обработку персональных данных в соответствии с &lt;a href=&quot;#privacy&quot;&gt;политикой конфиденциальности&lt;/a&gt;." data-en-html="I consent to the processing of my personal data under the &lt;a href=&quot;#privacy&quot;&gt;privacy policy&lt;/a&gt;.">Даю согласие на обработку персональных данных в соответствии с <a href="#privacy">политикой конфиденциальности</a>.</span>
+            <span data-ru-html="Подтверждаю ознакомление с &lt;a href=&quot;https://talentgrator.com/courses/slot-design-from-idea-to-release/privacy&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Политикой конфиденциальности&lt;/a&gt; (Privacy Policy, документ на английском языке)." data-en-html="I acknowledge that I have read the &lt;a href=&quot;https://talentgrator.com/courses/slot-design-from-idea-to-release/privacy&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Privacy Policy&lt;/a&gt;.">Подтверждаю ознакомление с <a href="https://talentgrator.com/courses/slot-design-from-idea-to-release/privacy" target="_blank" rel="noopener">Политикой конфиденциальности</a> (Privacy Policy, документ на английском языке).</span>
           </label>
           <p class="join-error" id="lf-consent-err" role="alert"></p>
         </div>
@@ -6727,7 +6736,13 @@ html.lenis,
       goal:       'entry.1679744956',
       region:     'entry.484941668',
       jobs:       'entry.969847093',
-      source:     'entry.355085959'
+      source:     'entry.355085959',
+      /* consent checkboxes: fill in the entry ids once the matching
+         short-answer questions exist in the Google Form; until then
+         these values are not stored anywhere */
+      privacy:    '',
+      terms:      '',
+      partners:   ''
     }
   };
 
@@ -6805,7 +6820,7 @@ html.lenis,
     email:    { ru: 'Проверьте адрес: нужен вид name@example.com', en: 'Check the address: it should look like name@example.com' },
     choose:   { ru: 'Выберите один из вариантов', en: 'Pick one of the options' },
     chooseAny:{ ru: 'Выберите хотя бы один вариант', en: 'Pick at least one option' },
-    consent:  { ru: 'Чтобы отправить заявку, нужно принять оферту и политику конфиденциальности', en: 'To send the application you need to accept the offer and the privacy policy' },
+    consent:  { ru: 'Чтобы отправить заявку, примите условия участия и подтвердите ознакомление с политикой конфиденциальности', en: 'To send the application, accept the terms and confirm that you have read the Privacy Policy' },
     sending:  { ru: 'Отправляем…', en: 'Sending…' },
     send:     { ru: 'Отправить заявку', en: 'Send application' },
     failed:   { ru: 'Не удалось отправить. Проверьте соединение и попробуйте ещё раз, или напишите нам в Telegram.', en: 'Could not send. Check your connection and try again, or write to us on Telegram.' },
@@ -6853,16 +6868,16 @@ html.lenis,
       }
     });
 
-    var offer = document.getElementById('jf-offer');
     var privacy = document.getElementById('jf-privacy');
+    var terms = document.getElementById('jf-terms');
     var consentBox = document.getElementById('jf-consent-err');
-    var consentOk = offer.checked && privacy.checked;
+    var consentOk = privacy.checked && terms.checked;
     consentBox.textContent = consentOk ? '' : t('consent');
-    [offer, privacy].forEach(function(cb){
-      if (consentOk) cb.removeAttribute('aria-invalid');
+    [privacy, terms].forEach(function(cb){
+      if (cb.checked) cb.removeAttribute('aria-invalid');
       else cb.setAttribute('aria-invalid', 'true');
     });
-    if (!consentOk) firstBad = firstBad || offer;
+    if (!consentOk) firstBad = firstBad || (privacy.checked ? terms : privacy);
 
     return firstBad;
   }
@@ -6895,6 +6910,7 @@ html.lenis,
        use, and it goes through from anywhere. */
     var parts = [];
     Object.keys(JOIN_ENDPOINT.fields).forEach(function(key){
+      if (!JOIN_ENDPOINT.fields[key]) return;
       var v = values[key];
       (Array.isArray(v) ? v : [v || '']).forEach(function(one){
         if (one === '') return;
@@ -6904,7 +6920,6 @@ html.lenis,
     parts.push('submit=Submit');
 
     var url = JOIN_ENDPOINT.action + '?' + parts.join('&');
-    console.log('[join] build 4, sending', url);
     send(url, showDone, onFail);
   }
 
@@ -6922,6 +6937,9 @@ html.lenis,
       var picked = Array.prototype.map.call(q.querySelectorAll('input:checked'), function(i){ return i.value; });
       values[q.getAttribute('data-key')] = q.getAttribute('data-type') === 'checkbox' ? picked : (picked[0] || '');
     });
+    values.privacy  = 'Да';
+    values.terms    = 'Да';
+    values.partners = document.getElementById('jf-partners').checked ? 'Да' : 'Нет';
 
     submit.disabled = true;
     submitLabel.textContent = t('sending');
@@ -6943,12 +6961,11 @@ html.lenis,
       setError(q, '');
     }
     if (e.target.type === 'checkbox' && !q){
-      var offer = document.getElementById('jf-offer');
+      if (e.target.checked) e.target.removeAttribute('aria-invalid');
       var privacy = document.getElementById('jf-privacy');
-      if (offer.checked && privacy.checked){
+      var terms = document.getElementById('jf-terms');
+      if (privacy.checked && terms.checked){
         document.getElementById('jf-consent-err').textContent = '';
-        offer.removeAttribute('aria-invalid');
-        privacy.removeAttribute('aria-invalid');
       }
     }
   });
@@ -7322,11 +7339,18 @@ html.lenis,
   var LEAD_ENDPOINT = {
     action: 'https://docs.google.com/forms/d/e/1FAIpQLSetuyCYklrhF5bLQu6JI5zMS0fO848X7EE_Ai1TpJhFlGccIA/formResponse',
     fields: {
-      name:    'entry.1223943979',
-      role:    'entry.498901969',
-      company: 'entry.1636474898',
-      contact: 'entry.1542200223'
-    }
+      company:   'entry.1636474898',
+      name:      'entry.1223943979',
+      contact:   'entry.1542200223',
+      /* fill in once the matching questions exist in the Google Form */
+      employees: '',
+      comment:   '',
+      privacy:   ''
+    },
+    /* answers whose question is not in the Google Form yet are written
+       together into this required question ("Должность"), so nothing
+       is lost and Google accepts the submission */
+    packInto: 'entry.498901969'
   };
 
   var form = document.getElementById('leadForm');
@@ -7400,7 +7424,8 @@ html.lenis,
   var COPY = {
     required: { ru: 'Заполните это поле', en: 'Please fill this in' },
     contact:  { ru: 'Оставьте почту или ник в Telegram', en: 'Leave an email address or a Telegram handle' },
-    consent:  { ru: 'Чтобы отправить, нужно согласие на обработку данных', en: 'To send this you need to consent to the processing of your data' },
+    consent:  { ru: 'Чтобы отправить, подтвердите ознакомление с политикой конфиденциальности', en: 'To send this, confirm that you have read the Privacy Policy' },
+    number:   { ru: 'Укажите число', en: 'Enter a number' },
     sending:  { ru: 'Отправляем…', en: 'Sending…' },
     send:     { ru: 'Отправить', en: 'Send' },
     failed:   { ru: 'Не удалось отправить. Проверьте соединение и попробуйте ещё раз, или напишите нам в Telegram.', en: 'Could not send. Check your connection and try again, or write to us on Telegram.' },
@@ -7417,10 +7442,15 @@ html.lenis,
 
   function validate(){
     var firstBad = null;
-    ['lf-name','lf-role','lf-company','lf-contact'].forEach(function(id){
+    ['lf-company','lf-name','lf-contact','lf-employees'].forEach(function(id){
       var el = document.getElementById(id);
       setError(el, '');
       var v = el.value.trim();
+      if (id === 'lf-employees' && el.validity && el.validity.badInput){
+        setError(el, t('number'));
+        firstBad = firstBad || el;
+        return;
+      }
       if (!v){
         setError(el, t('required'));
         firstBad = firstBad || el;
@@ -7461,14 +7491,18 @@ html.lenis,
     }
     /* same delivery as the participant form above */
     var parts = [];
+    var packed = [];
+    var LABELS = { employees: 'Сотрудников', comment: 'Комментарий', privacy: 'Privacy Policy' };
     Object.keys(LEAD_ENDPOINT.fields).forEach(function(key){
       var v = values[key] || '';
       if (v === '') return;
-      parts.push(encodeURIComponent(LEAD_ENDPOINT.fields[key]) + '=' + encodeURIComponent(v));
+      var entry = LEAD_ENDPOINT.fields[key];
+      if (entry) parts.push(encodeURIComponent(entry) + '=' + encodeURIComponent(v));
+      else packed.push((LABELS[key] || key) + ': ' + v);
     });
+    if (LEAD_ENDPOINT.packInto) parts.push(encodeURIComponent(LEAD_ENDPOINT.packInto) + '=' + encodeURIComponent(packed.join(' | ') || '—'));
     parts.push('submit=Submit');
     var url = LEAD_ENDPOINT.action + '?' + parts.join('&');
-    console.log('[lead] build 4, sending', url);
     send(url, showDone, onFail);
   }
 
@@ -7477,10 +7511,12 @@ html.lenis,
     var firstBad = validate();
     if (firstBad){ firstBad.focus(); return; }
     var values = {
-      name:    document.getElementById('lf-name').value.trim(),
-      role:    document.getElementById('lf-role').value.trim(),
-      company: document.getElementById('lf-company').value.trim(),
-      contact: document.getElementById('lf-contact').value.trim()
+      company:   document.getElementById('lf-company').value.trim(),
+      name:      document.getElementById('lf-name').value.trim(),
+      contact:   document.getElementById('lf-contact').value.trim(),
+      employees: document.getElementById('lf-employees').value.trim(),
+      comment:   document.getElementById('lf-comment').value.trim(),
+      privacy:   'Да'
     };
     submit.disabled = true;
     submitLabel.textContent = t('sending');
@@ -7495,6 +7531,7 @@ html.lenis,
     if (e.target.matches('.join-input')) setError(e.target, '');
   });
   form.addEventListener('change', function(e){
+    if (e.target.id === 'lf-privacy' && e.target.checked) e.target.removeAttribute('aria-invalid');
     if (e.target.id === 'lf-privacy' && e.target.checked) document.getElementById('lf-consent-err').textContent = '';
   });
 })();
