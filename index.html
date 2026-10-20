@@ -2087,7 +2087,9 @@
   .join-legal a{ color: var(--paper-ink-soft); text-underline-offset: 3px; }
   .join-legal--contact{ color: var(--paper-ink-soft); }
   .join-legal--contact a{ overflow-wrap: anywhere; }
-  .join-legal--company{ margin-top: 10px; }
+  .join-legal--company{ margin-top: 10px; line-height: 1.6; }
+  .join-legal--docs{ margin-top: 10px; }
+  .join-legal .nw{ white-space: nowrap; }
   .join-dialog::backdrop{
     background: rgba(8,8,12,0.62);
     backdrop-filter: blur(3px);
@@ -2235,7 +2237,10 @@
     cursor: pointer;
   }
   .join-consent input{
+    -webkit-appearance: none;
     appearance: none;
+    flex: none;
+    box-sizing: border-box;
     width: 19px;
     height: 19px;
     margin: 2px 0 0;
@@ -2249,10 +2254,9 @@
     background-color: var(--paper-ink);
     border-color: var(--paper-ink);
     /* a drawn tick, so the box never depends on a font glyph */
-    background-image: linear-gradient(45deg, transparent 44%, #f7f7f5 44%, #f7f7f5 57%, transparent 57%),
-                      linear-gradient(-45deg, transparent 44%, #f7f7f5 44%, #f7f7f5 57%, transparent 57%);
-    background-size: 10px 2px, 6px 2px;
-    background-position: 7px 10px, 3px 9px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.4l3.3 3.3L15.2 6.6' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: 100% 100%;
+    background-position: center;
     background-repeat: no-repeat;
   }
   .join-consent input:focus-visible{ outline: 2px solid var(--paper-ink); outline-offset: 2px; }
@@ -2280,6 +2284,7 @@
   .join-submit:focus-visible{ outline: 2px solid var(--paper-ink); outline-offset: 3px; }
   .join-submit[disabled]{ opacity: 0.55; cursor: progress; }
 
+  .join-formnote a{ color: var(--paper-ink-soft); text-underline-offset: 3px; }
   .join-formnote{
     margin: 14px 0 0;
     font-size: clamp(1rem, 1.15vw, 1.06rem);
@@ -4320,7 +4325,8 @@ html.lenis,
   </div>
 
   <p class="join-legal join-legal--contact" data-ru-html="С вопросами о курсе и претензиями пишите на &lt;a href=&quot;mailto:courses@talentgrator.com&quot;&gt;courses@talentgrator.com&lt;/a&gt;." data-en-html="For questions about the course or complaints, write to &lt;a href=&quot;mailto:courses@talentgrator.com&quot;&gt;courses@talentgrator.com&lt;/a&gt;.">С вопросами о курсе и претензиями пишите на <a href="mailto:courses@talentgrator.com">courses@talentgrator.com</a>.</p>
-  <p class="join-legal join-legal--company">SmileTech s.r.o. (Talentgrator) · <a href="#privacy" data-ru="Политика конфиденциальности" data-en="Privacy policy">Privacy policy</a></p>
+  <p class="join-legal join-legal--company"><span data-ru-html="&lt;span class=&quot;nw&quot;&gt;SmileTech s.r.o.&lt;/span&gt; · &lt;span class=&quot;nw&quot;&gt;Регистрационный номер 03945065&lt;/span&gt; · &lt;span class=&quot;nw&quot;&gt;VAT ID CZ03945065&lt;/span&gt;" data-en-html="&lt;span class=&quot;nw&quot;&gt;SmileTech s.r.o.&lt;/span&gt; · &lt;span class=&quot;nw&quot;&gt;Company ID 03945065&lt;/span&gt; · &lt;span class=&quot;nw&quot;&gt;VAT ID CZ03945065&lt;/span&gt;"><span class="nw">SmileTech s.r.o.</span> · <span class="nw">Регистрационный номер 03945065</span> · <span class="nw">VAT ID CZ03945065</span></span><br><span class="nw">Na hřebenech II 1718/10,</span> <span class="nw">140 00 Praha 4,</span> <span class="nw">Czech Republic</span><br><a href="mailto:courses@talentgrator.com">courses@talentgrator.com</a></p>
+  <p class="join-legal join-legal--docs"><a href="https://talentgrator.com/courses/slot-design-from-idea-to-release/privacy" target="_blank" rel="noopener" data-ru="Политика конфиденциальности" data-en="Privacy Policy">Политика конфиденциальности</a></p>
 
   <dialog class="join-dialog" id="joinDialog" aria-labelledby="joinDialogTitle">
     <div class="join-dialog-scroll" id="joinDialogScroll" data-lenis-prevent>
@@ -4476,7 +4482,7 @@ html.lenis,
         </div>
 
         <button type="submit" class="join-submit" id="joinSubmit"><span class="btn-label" id="joinSubmitLabel" data-ru="Отправить заявку" data-en="Send application">Отправить заявку</span><span class="btn-orbit" aria-hidden="true"><svg class="btn-orbit-track" preserveAspectRatio="none"><rect fill="none" width="100%" height="100%"></rect></svg><span class="btn-orbit-dot"></span></span></button>
-        <p class="join-formnote" data-ru="Данные видит только команда Talentgrator. Партнёрам мы передаём их только с вашего согласия." data-en="Only the Talentgrator team sees your details. We share them with partners only with your consent.">Данные видит только команда Talentgrator. Партнёрам мы передаём их только с вашего согласия.</p>
+        <p class="join-formnote" data-ru-html="Мы обрабатываем ваши данные в соответствии с &lt;a href=&quot;https://talentgrator.com/courses/slot-design-from-idea-to-release/privacy&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Политикой конфиденциальности&lt;/a&gt;." data-en-html="Your details are processed in accordance with our &lt;a href=&quot;https://talentgrator.com/courses/slot-design-from-idea-to-release/privacy&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Privacy Policy&lt;/a&gt;.">Мы обрабатываем ваши данные в соответствии с <a href="https://talentgrator.com/courses/slot-design-from-idea-to-release/privacy" target="_blank" rel="noopener">Политикой конфиденциальности</a>.</p>
       </form>
 
       <div class="join-done" id="joinDone" tabindex="-1">
@@ -4535,7 +4541,7 @@ html.lenis,
         </div>
 
         <button type="submit" class="join-submit" id="leadSubmit"><span class="btn-label" id="leadSubmitLabel" data-ru="Отправить" data-en="Send">Отправить</span><span class="btn-orbit" aria-hidden="true"><svg class="btn-orbit-track" preserveAspectRatio="none"><rect fill="none" width="100%" height="100%"></rect></svg><span class="btn-orbit-dot"></span></span></button>
-        <p class="join-formnote" data-ru="Данные видит только команда Talentgrator." data-en="Only the Talentgrator team sees your details.">Данные видит только команда Talentgrator.</p>
+        <p class="join-formnote" data-ru-html="Мы обрабатываем ваши данные в соответствии с &lt;a href=&quot;https://talentgrator.com/courses/slot-design-from-idea-to-release/privacy&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Политикой конфиденциальности&lt;/a&gt;." data-en-html="Your details are processed in accordance with our &lt;a href=&quot;https://talentgrator.com/courses/slot-design-from-idea-to-release/privacy&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Privacy Policy&lt;/a&gt;.">Мы обрабатываем ваши данные в соответствии с <a href="https://talentgrator.com/courses/slot-design-from-idea-to-release/privacy" target="_blank" rel="noopener">Политикой конфиденциальности</a>.</p>
       </form>
 
       <div class="join-done" id="leadDone" tabindex="-1">
