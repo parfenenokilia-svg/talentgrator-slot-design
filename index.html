@@ -2223,6 +2223,7 @@
     gap: 12px;
     margin: clamp(22px, 2.6vw, 28px) 0 0;
   }
+  .join-consent[hidden]{ display: none !important; }
   .join-consent{
     display: grid;
     grid-template-columns: 20px minmax(0, 1fr);
@@ -4459,8 +4460,12 @@ html.lenis,
             <input type="checkbox" id="jf-privacy" name="privacy" required aria-describedby="jf-consent-err">
             <span data-ru-html="Подтверждаю ознакомление с &lt;a href=&quot;https://talentgrator.com/courses/slot-design-from-idea-to-release/privacy&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Политикой конфиденциальности&lt;/a&gt; (Privacy Policy, документ на английском языке)." data-en-html="I acknowledge that I have read the &lt;a href=&quot;https://talentgrator.com/courses/slot-design-from-idea-to-release/privacy&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Privacy Policy&lt;/a&gt;.">Подтверждаю ознакомление с <a href="https://talentgrator.com/courses/slot-design-from-idea-to-release/privacy" target="_blank" rel="noopener">Политикой конфиденциальности</a> (Privacy Policy, документ на английском языке).</span>
           </label>
-          <label class="join-consent">
-            <input type="checkbox" id="jf-terms" name="terms" required aria-describedby="jf-consent-err">
+          <!-- Terms and Conditions checkbox: switched off for now, see TERMS_ENABLED
+               in the participant form script. To bring it back: put the PDF link in
+               place of #terms-pdf-placeholder (three places in this label) and set
+               TERMS_ENABLED to true. -->
+          <label class="join-consent" id="jf-terms-row" hidden>
+            <input type="checkbox" id="jf-terms" name="terms" aria-describedby="jf-consent-err">
             <span data-ru-html="Принимаю &lt;a href=&quot;#terms-pdf-placeholder&quot;&gt;условия участия в онлайн-курсе&lt;/a&gt; (Terms and Conditions for Participation in the Live Online Course, документ на английском языке)." data-en-html="I accept the &lt;a href=&quot;#terms-pdf-placeholder&quot;&gt;TERMS AND CONDITIONS FOR PARTICIPATION IN THE LIVE ONLINE COURSE&lt;/a&gt;.">Принимаю <a href="#terms-pdf-placeholder">условия участия в онлайн-курсе</a> (Terms and Conditions for Participation in the Live Online Course, документ на английском языке).</span>
           </label>
           <label class="join-consent">
@@ -6747,6 +6752,16 @@ html.lenis,
 
   var form = document.getElementById('joinForm');
   if (!form) return;
+
+  /* Terms and Conditions checkbox. false: the row is hidden, it is not
+     required and nothing is sent to its Google Form question. true: the
+     row shows, it must be ticked and "Да" goes to the form. */
+  var TERMS_ENABLED = false;
+  var termsRow = document.getElementById('jf-terms-row');
+  var termsBox = document.getElementById('jf-terms');
+  if (termsRow) termsRow.hidden = !TERMS_ENABLED;
+  if (termsBox) termsBox.required = TERMS_ENABLED;
+
   var scroller = document.getElementById('joinDialogScroll');
   var done = document.getElementById('joinDone');
   var submit = document.getElementById('joinSubmit');
@@ -6820,6 +6835,7 @@ html.lenis,
     choose:   { ru: 'Выберите один из вариантов', en: 'Pick one of the options' },
     chooseAny:{ ru: 'Выберите хотя бы один вариант', en: 'Pick at least one option' },
     consent:  { ru: 'Чтобы отправить заявку, примите условия участия и подтвердите ознакомление с политикой конфиденциальности', en: 'To send the application, accept the terms and confirm that you have read the Privacy Policy' },
+    consentPrivacy: { ru: 'Чтобы отправить заявку, подтвердите ознакомление с политикой конфиденциальности', en: 'To send the application, confirm that you have read the Privacy Policy' },
     sending:  { ru: 'Отправляем…', en: 'Sending…' },
     send:     { ru: 'Отправить заявку', en: 'Send application' },
     failed:   { ru: 'Не удалось отправить. Проверьте соединение и попробуйте ещё раз, или напишите нам в Telegram.', en: 'Could not send. Check your connection and try again, or write to us on Telegram.' },
@@ -6870,9 +6886,9 @@ html.lenis,
     var privacy = document.getElementById('jf-privacy');
     var terms = document.getElementById('jf-terms');
     var consentBox = document.getElementById('jf-consent-err');
-    var consentOk = privacy.checked && terms.checked;
-    consentBox.textContent = consentOk ? '' : t('consent');
-    [privacy, terms].forEach(function(cb){
+    var consentOk = privacy.checked && (!TERMS_ENABLED || terms.checked);
+    consentBox.textContent = consentOk ? '' : t(TERMS_ENABLED ? 'consent' : 'consentPrivacy');
+    (TERMS_ENABLED ? [privacy, terms] : [privacy]).forEach(function(cb){
       if (cb.checked) cb.removeAttribute('aria-invalid');
       else cb.setAttribute('aria-invalid', 'true');
     });
@@ -6937,7 +6953,7 @@ html.lenis,
       values[q.getAttribute('data-key')] = q.getAttribute('data-type') === 'checkbox' ? picked : (picked[0] || '');
     });
     values.privacy  = 'Да';
-    values.terms    = 'Да';
+    values.terms    = TERMS_ENABLED ? 'Да' : '';
     values.partners = document.getElementById('jf-partners').checked ? 'Да' : 'Нет';
 
     submit.disabled = true;
@@ -6963,7 +6979,7 @@ html.lenis,
       if (e.target.checked) e.target.removeAttribute('aria-invalid');
       var privacy = document.getElementById('jf-privacy');
       var terms = document.getElementById('jf-terms');
-      if (privacy.checked && terms.checked){
+      if (privacy.checked && (!TERMS_ENABLED || terms.checked)){
         document.getElementById('jf-consent-err').textContent = '';
       }
     }
